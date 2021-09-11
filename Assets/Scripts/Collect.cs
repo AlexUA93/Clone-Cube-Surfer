@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 public class Collect : MonoBehaviour
 {
@@ -16,6 +14,10 @@ public class Collect : MonoBehaviour
             collision.gameObject.transform.parent = m_GM.m_Line.transform;
             collision.gameObject.transform.localPosition = new Vector3(0f, m_Up * m_GM.m_LineCount, 0f);
             collision.gameObject.tag = m_NewTag;
+        }
+        if (collision.gameObject.tag == "Finish")
+        {
+            m_GM.m_IsFinish = true;
         }
     }
 }

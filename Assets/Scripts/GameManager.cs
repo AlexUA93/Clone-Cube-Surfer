@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,11 +8,13 @@ public class GameManager : MonoBehaviour
 
     public float speed = 5f;
     public int m_LineCount = 0;
+    public bool m_IsFinish;
 
     private void Awake()
     {
         m_PlayerControle = new PlayerControle();
         m_PlayerControle.GamePlay.MoveByMouse.performed += ctx => MoveLR();
+        m_IsFinish = false;
     }
 
     private void MoveLR()
@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        m_Line.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        if (!m_IsFinish)
+        {
+            m_Line.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
     }
 }
