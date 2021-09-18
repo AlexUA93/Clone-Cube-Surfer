@@ -19,14 +19,19 @@ public class GameManager : MonoBehaviour
 
     private void MoveLR()
     {
-        m_Line.transform.Translate(Vector3.right * speed * Time.deltaTime);
+        Move(Vector3.right * speed * Time.deltaTime);
     }
 
     private void FixedUpdate()
     {
+        Move(Vector3.forward * speed * Time.deltaTime);
+    }
+
+    private void Move(Vector3 value)
+    {
         if (!m_IsFinish)
         {
-            m_Line.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            m_Line.transform.Translate(value);
         }
     }
 }

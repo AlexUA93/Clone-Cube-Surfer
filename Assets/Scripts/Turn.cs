@@ -1,11 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
 public class Turn : MonoBehaviour
 {
-    [SerializeField]
-    private Camera m_Camera;
+    private GameObject m_ObjectCollision;
+    private Coroutine m_Coroutine;
 
     private bool isTurn;
+    public float m_Speed = 10f;
 
     private void Start()
     {
@@ -16,8 +18,27 @@ public class Turn : MonoBehaviour
     {
         if (collision.gameObject.tag == "Line" && !isTurn)
         {
-            collision.gameObject.transform.rotation = gameObject.transform.rotation;
+            m_ObjectCollision = collision.gameObject;
+            m_Coroutine = StartCoroutine(TurnCoroutine());
             isTurn = true;
         }
+    }
+
+    IEnumerator TurnCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForFixedUpdate();
+            m_ObjectCollision.transform.rotation = Quaternion.Lerp(m_ObjectCollision.transform.rotation, gameObject.transform.rotation, m_Speed * Time.deltaTime);
+            if (m_ObjectCollision.transform.rotation == gameObject.transform.rotation)
+            {
+                stopCurrentCoroutine();
+            }
+        }
+    }
+
+    private void stopCurrentCoroutine()
+    {
+        StopCoroutine(m_Coroutine);
     }
 }
