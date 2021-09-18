@@ -17,9 +17,14 @@ public class Cube : MonoBehaviour
         if (collision.gameObject.tag == "Destroy")
         {
             m_GM.m_LineCount--;
-            transform.parent = m_Parent;
-            gameObject.tag = m_OldTag;
-            gameObject.active = false;
+            Destroy();
         }
+    }
+
+    public void Destroy()
+    {
+        transform.parent = m_Parent;
+        gameObject.tag = m_OldTag;
+        gameObject.active = false;
     }
 }
